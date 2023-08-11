@@ -27,7 +27,7 @@
                 app:layout_collapseMode="parallax" />
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/collapsing_toolbar"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin" />
@@ -39,6 +39,7 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -53,10 +54,10 @@
                     android:layout_height="wrap_content"
                     android:text="Choose type snack:" />
 
-            <RadioGroup
-                android:id="@+id/radio_group_type_snacks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                 <RadioGroup
+                    android:id="@+id/radio_group_type_snacks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
 
                 <RadioButton
@@ -86,17 +87,17 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/hot_drink"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hot drink" />
+                    android:text="Hot drink"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/cold_drink"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cold drink" />
+                    android:text="Cold drink"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"/>
             </com.google.android.material.chip.ChipGroup>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -105,8 +106,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@id/appbar_layout"
-        app:layout_anchorGravity="bottom|end"
+       android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@android:drawable/ic_menu_send"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
