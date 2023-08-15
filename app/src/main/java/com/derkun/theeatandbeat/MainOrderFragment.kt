@@ -12,13 +12,16 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-
+import com.derkun.theeatandbeat.databinding.FragmentMainOrderBinding
 
 class MainOrderFragment : Fragment() {
+
+    private var _binding: FragmentMainOrderBinding? = null
+    private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,9 +30,10 @@ class MainOrderFragment : Fragment() {
     ): View? {
         super.onCreate(savedInstanceState)
 
-        val view = inflater.inflate(R.layout.fragment_main_order, container, false)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        _binding = FragmentMainOrderBinding.inflate(inflater, container,false)
+        val view = binding.root
+
+        (activity as AppCompatActivity).setSupportActionBar((binding.toolbar))
         return view
 
         val snackGroup = view.findViewById<RadioGroup>(R.id.radio_group_type_snacks)
@@ -53,10 +57,9 @@ class MainOrderFragment : Fragment() {
             println("You choose cold drink!")
         }
 
-        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener {
-            val radio_group_type_snacks = view.findViewById<RadioGroup>(R.id.radio_group_type_snacks)
-            val foodType = radio_group_type_snacks.checkedRadioButtonId
+
+        binding.fab.setOnClickListener {
+            val foodType = binding.radioGroupTypeSnacks.checkedRadioButtonId
             if (foodType ==-1) {
                 val noSelectedSnack = "Cold snack selected!"
                 Toast.makeText(activity, noSelectedSnack, Toast.LENGTH_LONG).show()
@@ -65,13 +68,16 @@ class MainOrderFragment : Fragment() {
                     R.id.hot_snack -> "Hot Snack"
                     else -> "Cold Snack"
                 })
-                val colddrink = view.findViewById<Chip>(R.id.cold_drink)
-                text += if (colddrink.isChecked) ", cold drink" else ""
-                val hotdrink = view.findViewById<Chip>(R.id.hot_drink)
-                text += if (hotDrink.isChecked) ", hot drink" else ""
-                Snackbar.make(fab, text, Snackbar.LENGTH_LONG).show()
+                text += if (binding.coldDrink.isChecked) ", cold drink" else ""
+                text += if (binding.hotDrink.isChecked) ", hot drink" else ""
+                Snackbar.make(binding.fab, text, Snackbar.LENGTH_LONG).show()
             }
         }
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
